@@ -60,7 +60,7 @@ def new_prediction():
         return 'Missing values', 400
 
      data = predictor.yields(values['State'], values['Crop'], values['Region'], values['Area'])
-     response = {'message':f'the yeild predicted will be around: {data}'}
+     response = {'message':f'the yield predicted will be around: {data}'}
      return jsonify(response), 201
 
 @app.route('/predictcrop', methods=['Post'])
