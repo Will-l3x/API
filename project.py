@@ -69,7 +69,7 @@ def new_cropprediction():
     #check that all required values of the post data are found
      required = ['Region', 'District', 'Season']
      if not all(k in values for k in required):
-        return 'Missing values', 400
+        return 'Missing Values', 400
 
      data = predictor.cropsuggestion(values['Region'], values['District'], values['Season'])
      response = {'message':f'with the input given the crop to plant would be {data}'}
