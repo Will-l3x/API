@@ -19,7 +19,7 @@ class Predictor:
         s_Area = le.fit_transform([d])
 
         model = joblib.load('yield-recommender.joblib')
-        predictions = model.predict([[5, 4, 3]])
+        predictions = model.predict([[Region, Area, s_State, s_Crop]])
         return predictions
     
     def cropsuggestion(self, Region, District, Season):
