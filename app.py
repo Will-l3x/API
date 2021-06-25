@@ -6,7 +6,7 @@ import json
 from sklearn.preprocessing import LabelEncoder
 
 class Predictor:
-    def yields(self,State, Crop, Region, Area,  ):
+    def yields(self,State, Crop, Region, Area  ):
         a = State
         b = Crop
         c = Region
@@ -18,8 +18,8 @@ class Predictor:
         
         s_Area = le.fit_transform([d])
 
-        model = joblib.load('yield-predictor.joblib')
-        predictions = model.predict([[Region, Area, s_State, s_Crop, 8]])
+        model = joblib.load('yield-recommender.joblib')
+        predictions = model.predict([[5, 4, 3]])
         return predictions
     
     def cropsuggestion(self, Region, District, Season):
