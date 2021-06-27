@@ -18,7 +18,7 @@ class Predictor:
         
         s_Area = le.fit_transform([d])
 
-        model = joblib.load('yield-recommender.joblib')
+        model = joblib.load('yield.joblib')
         predictions = model.predict([[Region, Area, s_State, s_Crop]])
         return predictions
     
