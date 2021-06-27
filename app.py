@@ -3,7 +3,7 @@ from flask_restful import reqparse, abort, Api, Resource
 import joblib
 import requests
 import json
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
 
 class Predictor:
     def yields(self,State, Crop, Region, Area  ):
@@ -11,15 +11,17 @@ class Predictor:
         b = Crop
         c = Region
         d = Area
-
-        le = LabelEncoder()
-        s_State = le.fit_transform([a])
-        s_Crop = le.fit_transform([b])
-        
+        crop_data = [Region, Area, State, Crop]
+        le = OneHotEncoder()
+        crop_data['State_label'] = le.fit_transform(crop_data['State'])
+        crop_data['s_Crop'] = le.fit_transform(crop_data['Crop'])
+        data = le.fit_transform(crop_data)
+        X = crop_data.drop(columns=['Crop', 'State'])
         s_Area = le.fit_transform([d])
 
-        model = joblib.load('yield.joblib')
-        predictions = model.predict([[Region, Area, s_State, s_Crop]])
+        model = joblib.load('finalyield.joblib')
+        predictions = model.predict(data)
+        
         return predictions
     
     def cropsuggestion(self, Region, District, Season):
