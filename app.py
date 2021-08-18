@@ -18,8 +18,8 @@ class Predictor:
         
         s_Area = le.fit_transform([d])
 
-        model = joblib.load('yield.joblib')
-        predictions = model.predict([[Region, Area, s_State, s_Crop]])
+        model = joblib.load('yield-predictors.joblib')
+        predictions = model.predict([[Region, Area, State, Crop]])
         return predictions
     
     def cropsuggestion(self, Region, District, Season):
@@ -32,13 +32,22 @@ class Predictor:
         s_Season = le.fit_transform([b])
 
         model = joblib.load('crop-recommender.joblib')
-        predictions = model.predict([[Region, s_District, s_Season]])
+        predictions = model.predict([[Region, District, Season]])
         
         return predictions
 
     def capitalpredictions(self, crop, area, yields):
         ## the model predicts the financial vaibility of the project
+        a = crop
+        b = area
+        le = LabelEncoder()
+        s_District = le.fit_transform([a])
+        s_Season = le.fit_transform([b])
 
+        model = joblib.load('crop-recommender.joblib')
+        predictions = model.predict([[a, b, s_District]])
+        
+       
         return True
 
 
